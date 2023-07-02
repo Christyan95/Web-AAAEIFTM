@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR" layout:decorate="~{layout/layoutpadrao}" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<title>Cadastrar Diretor</title>
+</head>
+
+<body>
+	<div layout:fragment="conteudo">
+
+		<div th:replace="~{layout/fragments/sidebar :: sidebar(opcao='diretor')}"></div>
+
+		<!-- conteudo principal -->
+		<main class="mt-5 p-4 pt-5">
+			<div class="container-fluid">
+
+				<form th:action="@{/diretor/cadastrar}" method="POST">
+					<input type="hidden" th:field="${diretor.codigo}">
+
+					<label for="nome" class="form-label">Nome:</label>
+					<input type="text" th:field="${diretor.nome}" class="form-control" th:errorclass="is-invalid">
+					<span class="invalid-feedback" th:if="${#fields.hasErrors('diretor.nome')}"
+						th:each="erro : ${#fields.errors('diretor.nome')}" th:text="${erro} + '. '"></span>
+
+					<label for="cpf" class="form-label">CPF:</label>
+					<input type="text" th:field="${diretor.cpf}" class="form-control" th:errorclass="is-invalid">
+					<span class="invalid-feedback" th:if="${#fields.hasErrors('diretor.cpf')}"
+						th:each="erro : ${#fields.errors('diretor.cpf')}" th:text="${erro} + '. '"></span>
+
+					<label for="dataNascimento" class="form-label">Nascimento:</label>
+					<input type="text" th:field="${diretor.dataNascimento}" class="form-control componentedata"
+						th:errorclass="is-invalid">
+					<span class="invalid-feedback" th:if="${#fields.hasErrors('diretor.dataNascimento')}"
+						th:each="erro : ${#fields.errors('diretor.dataNascimento')}" th:text="${erro} + '. '"></span>
+
+					<div th:each="area: ${todosAreas}" class="form-check">
+						<input type="checkbox" th:field="*{areas}" th:value="${area.codigo}" class="form-check-input">
+						<label th:for="${#ids.prev('areas')}" th:text="${area.nome}" class="form-check-label">Texto
+							checkbox 1</label>
+					</div>
+					<span class="invalid-feedback" th:if="${#fields.hasErrors('areas')}"
+						th:each="erro : ${#fields.errors('areas')}" th:text="${erro} + '. '"></span>
+
+					<input type="submit" value="Cadastrar" class="btn btn-primary mt-3">
+				</form>
+
+				<div th:if="${notificacao != null}" th:object="${notificacao}">
+					<input type="hidden" id="mensagem" th:value="*{mensagem}">
+					<input type="hidden" id="tipo" th:value="*{tipo}">
+					<input type="hidden" id="intervalo" th:value="*{intervalo}">
+				</div>
+
+			</div>
+		</main>
+		<!-- !conteudo principal -->
+
+	</div>
+
+</body>
+
+</html>

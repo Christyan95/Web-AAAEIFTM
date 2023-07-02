@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-Application<aaaeiftm>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "web.aaaeiftm.Application",
+            "projectName": "aaaeiftm",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

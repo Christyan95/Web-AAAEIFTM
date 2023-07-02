@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR" layout:decorate="~{layout/layoutpadrao}" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>História Atlética</title>
+</head>
+
+<body>
+    <div layout:fragment="conteudo">
+
+        <div th:replace="~{layout/fragments/sidebar :: sidebar(opcao='sobre')}"></div>
+
+        <!-- conteudo principal -->
+        <main class="mt-5 p-4 pt-5">
+            <div class="container-fluid">
+
+                <p>Há muito tempo atrás, em uma ensolarada tarde de verão, no dia 17 de junho de 1975, nas dependências
+                    do antigo Instituto Federal de Uberaba, um grupo de estudantes de engenharia se reunia com um
+                    objetivo em comum: criar uma forma de promover o esporte, a camaradagem e o espírito competitivo
+                    entre os estudantes da instituição. Foi assim que nasceu a lendária Atlética de Engenharias do IFTM
+                    (Instituto Federal do Triângulo Mineiro) de Uberaba, em Minas Gerais.
+
+                    Os estudantes estavam animados com a ideia e se reuniram em uma sala de aula vazia para discutir e
+                    planejar o futuro da atlética. Após várias horas de debate, eles chegaram a um consenso e decidiram
+                    que o nome oficial seria "Atlética Engenheiros do Triângulo" (AET), em homenagem à região geográfica
+                    onde o instituto se localizava.
+
+                    A AET rapidamente começou a ganhar reconhecimento dentro e fora da instituição. Os alunos envolvidos
+                    eram dedicados e trabalhavam arduamente para organizar eventos esportivos e atividades recreativas
+                    que engajassem os estudantes de engenharia. Eles também buscavam estabelecer laços com outras
+                    atléticas de instituições de ensino da região, fomentando a competição saudável e o intercâmbio
+                    cultural entre os estudantes.
+
+                    Com o passar dos anos, a AET cresceu e se fortaleceu, tornando-se uma referência na região. Os
+                    membros da atlética eram conhecidos por sua paixão pelo esporte e seu espírito de união. Eles
+                    organizavam campeonatos internos, participavam de torneios regionais e se envolviam em ações sociais
+                    na comunidade local.
+
+                    Ao longo do tempo, a Atlética Engenheiros do Triângulo se tornou uma parte essencial da vida
+                    estudantil no IFTM de Uberaba. Ela ajudou a moldar a identidade dos estudantes de engenharia,
+                    proporcionando-lhes momentos de diversão, amizade e superação. A cada ano, novos membros se juntavam
+                    à atlética, trazendo consigo entusiasmo e ideias inovadoras para manter viva a chama do espírito
+                    atlético.
+
+                    Até os dias atuais, a AET continua a desempenhar um papel importante na vida dos estudantes de
+                    engenharia do IFTM de Uberaba. Seus eventos esportivos, festas temáticas e projetos sociais são
+                    aguardados ansiosamente por todos. A atlética é um símbolo de união, superação e diversão,
+                    representando o espírito de luta e determinação dos futuros engenheiros que passam pelos corredores
+                    da instituição. A história da Atlética Engenheiros do Triângulo é uma prova viva de como um grupo de
+                    estudantes pode fazer a diferença e criar uma comunidade forte e unida em torno de seus ideais.</p>
+
+            </div>
+        </main>
+        <!-- !conteudo principal -->
+
+    </div>
+
+</body>
+
+</html>

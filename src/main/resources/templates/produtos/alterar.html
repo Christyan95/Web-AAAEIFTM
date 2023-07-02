@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR" layout:decorate="~{layout/layoutpadrao}" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>Alterar Produto</title>
+</head>
+<body>
+	<div layout:fragment="conteudo">
+
+		<div th:replace="~{layout/fragments/sidebar :: sidebar(opcao='produtos')}"></div>
+
+		<!-- conteudo principal -->
+		<main class="mt-5 p-4 pt-5">
+			<div class="container-fluid">
+					
+				<form th:action="@{/produtos/alterar}" method="POST">
+					<input type="hidden" th:field="${produto.codigo}">
+
+                    <label for="nome" class="form-label">Nome:</label>
+                    <input type="text" th:field="${produto.nome}" class="form-control" th:errorclass="is-invalid">
+					<span class="invalid-feedback" th:if="${#fields.hasErrors('produto.nome')}"
+						th:each="erro : ${#fields.errors('produto.nome')}" th:text="${erro} + '. '"></span>
+
+                    <label for="descricao" class="form-label">Descrição:</label>
+                    <input type="text" th:field="${produto.descricao}" class="form-control" th:errorclass="is-invalid">
+					<span class="invalid-feedback" th:if="${#fields.hasErrors('produto.descricao')}"
+						th:each="erro : ${#fields.errors('produto.descricao')}" th:text="${erro} + '. '"></span>
+
+                    <input type="submit" value="Alterar" class="btn btn-primary mt-3">
+                </form>
+
+			</div>
+		</main>
+		<!-- !conteudo principal -->
+
+	</div>
+
+</body>
+</html>

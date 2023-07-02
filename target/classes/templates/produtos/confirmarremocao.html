@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR" layout:decorate="~{layout/layoutpadrao}" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>Confirmar Remoção</title>
+</head>
+<body>
+	<div layout:fragment="conteudo">
+
+		<div th:replace="~{layout/fragments/sidebar :: sidebar(opcao='produtos')}"></div>
+
+		<!-- conteudo principal -->
+		<main class="mt-5 p-4 pt-5">
+			<div class="container-fluid">
+				
+                <h1>Você tem certeza que quer remover o produto?</h1>
+                <p th:text="'Código: ' + ${produto.codigo}"></p>
+                <p th:text="'Nome: ' + ${produto.nome}"></p>
+                <p th:text="'Descrição: ' + ${produto.descricao}"></p>
+                <form th:action="@{/produtos/remover}" method="POST">
+                    <input type="hidden" name="codigo" th:value="${produto.codigo}">
+                    <input type="submit" value="Remover" class="btn btn-danger">
+                </form>
+
+			</div>
+		</main>
+		<!-- !conteudo principal -->
+
+	</div>
+
+</body>
+</html>
