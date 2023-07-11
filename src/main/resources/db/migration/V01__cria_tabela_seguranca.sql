@@ -1,5 +1,3 @@
-BEGIN;
-
 CREATE TABLE public.usuario
 (
 	codigo bigserial NOT NULL,
@@ -38,4 +36,41 @@ ALTER TABLE public.usuario_papel
     REFERENCES public.papel (codigo)
     NOT VALID;
 
-END;
+-- =================================================
+
+CREATE TABLE public.pessoa
+(
+    codigo serial NOT NULL,
+    nome text,
+    cpf text,
+    data_nascimento date,
+    PRIMARY KEY (codigo)
+);
+
+ALTER TABLE public.pessoa ADD COLUMN status text DEFAULT 'ATIVO';
+
+-- =================================================
+
+CREATE TABLE public.produto 
+(
+	codigo serial NOT NULL,
+	nome text,
+	descricao text,
+	-- codigo_carrinho bigint NOT NULL,
+	PRIMARY KEY (codigo)
+	-- FOREIGN KEY (codigo_carrinho) REFERENCES carrinho(codigo)
+);
+
+ALTER TABLE public.produto ADD COLUMN status text DEFAULT 'ATIVO';
+
+CREATE TABLE public.carrinho
+(
+    codigo serial NOT NULL,
+	-- codigo_usuario bigint NOT NULL,
+	codigo_pessoa bigint NOT NULL,
+	codigo_produto bigint NOT NULL,
+	PRIMARY KEY (codigo),
+    -- FOREIGN KEY (codigo_usuario) REFERENCES usuario(codigo),
+	FOREIGN KEY (codigo_pessoa) REFERENCES pessoa(codigo),
+	FOREIGN KEY (codigo_produto) REFERENCES produto(codigo)
+);

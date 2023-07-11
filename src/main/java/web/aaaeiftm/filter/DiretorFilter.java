@@ -2,8 +2,8 @@ package web.aaaeiftm.filter;
 
 import java.time.LocalDate;
 
-import jakarta.transaction.Status;
 import lombok.Data;
+import web.aaaeiftm.model.Status;
 
 @Data
 public class DiretorFilter {

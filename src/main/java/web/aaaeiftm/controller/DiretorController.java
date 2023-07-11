@@ -1,7 +1,6 @@
 package web.aaaeiftm.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +13,7 @@ import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +25,6 @@ import web.aaaeiftm.ajax.TipoNotificaoAlertify;
 import web.aaaeiftm.filter.DiretorFilter;
 import web.aaaeiftm.model.Area;
 import web.aaaeiftm.model.Diretor;
-import web.aaaeiftm.model.Status;
 import web.aaaeiftm.pagination.PageWrapper;
 import web.aaaeiftm.repository.AreaRepository;
 import web.aaaeiftm.repository.DiretorRepository;
@@ -38,42 +37,54 @@ public class DiretorController {
     private static final Logger logger = LoggerFactory.getLogger(DiretorController.class);
 
     @Autowired
-    private DiretorRepository diretorRepository;
+    private AreaRepository areaRepository;
 
     @Autowired
     private DiretorService diretorService;
 
     @Autowired
-    private AreaRepository areaRepository;
+    private DiretorRepository diretorRepository;
+
+    private void colocarAreasNoModel(Model model) {
+        List<Area> areas = areaRepository.findAll();
+        logger.info("Areas buscadas no BD: {}", areas);
+        model.addAttribute("todasAreas", areas);
+    }
+
+    private void loggingErrosValidacao(String mensagem, BindingResult resultado) {
+        logger.info(mensagem);
+        logger.info("Erros encontrados:");
+        for (FieldError erro : resultado.getFieldErrors()) {
+            logger.info("{}", erro);
+        }
+    }
 
     // ==========
     @GetMapping("/cadastrar")
     public String abrirCadastro(Diretor diretor, Model model) {
-        List<Area> areas = areaRepository.findAll();
-        model.addAttribute("todosAreas", areas);
+
+        colocarAreasNoModel(model);
         return "diretor/cadastrar";
     }
 
     @PostMapping("/cadastrar")
-    public String cadastrarNovoDiretor(@Valid Diretor diretor, BindingResult resultado, Model model) {
+    public String cadastrar(@Valid Diretor diretor, BindingResult resultado, Model model) {
 
         if (resultado.hasErrors()) {
-			logger.info("O diretor recebido para cadastrar não é válido.");
-			
-			List<Area> areas = areaRepository.findAll();
-			model.addAttribute("todosAreas", areas);
-			return "diretor/cadastrar";
-		} else {
-			diretorService.salvar(diretor);
-			return "redirect:/diretor/cadastrosucesso";
-		}
+            loggingErrosValidacao("O diretor recebido para cadastrar não é válido.", resultado);
+
+            return "diretor/cadastrar";
+        } else {
+            diretorService.salvar(diretor);
+            return "redirect:/diretor/mostrarmensagemcadastrook";
+        }
     }
 
-    @GetMapping("/cadastrosucesso")
-    public String mostrarCadastroSucesso(Diretor diretor, Model model) {
+    @GetMapping("/mostrarmensagemcadastrook")
+    public String mostrarMensagemCadastroOK(Diretor diretor, Model model) {
 
-        List<Area> areas = areaRepository.findAll();
-			model.addAttribute("todosAreas", areas);
+        colocarAreasNoModel(model);
+        
         NotificacaoAlertify notificacao = new NotificacaoAlertify("Diretor cadastrado com sucesso!",
                 TipoNotificaoAlertify.SUCESSO);
         model.addAttribute("notificacao", notificacao);
@@ -85,6 +96,7 @@ public class DiretorController {
     // ==========
     @GetMapping("/abrirpesquisar")
     public String abrirPesquisar(Model model) {
+        colocarAreasNoModel(model);
         model.addAttribute("url", "/diretor/pesquisar");
         model.addAttribute("uso", "diretor");
 
@@ -104,64 +116,67 @@ public class DiretorController {
     }
     // ==========
 
-    // ==========
-    @PostMapping("/abriralterar")
-    public String abrirAlterar(Long codigo, Model model) {
-        Optional<Diretor> optDiretor = diretorRepository.findById(codigo);
-        if (optDiretor.isPresent()) {
-            model.addAttribute("diretor", optDiretor.get());
-            return "diretor/alterar";
-        } else {
-            model.addAttribute("opcao", "diretor");
-            model.addAttribute("mensagem", "Não existe diretor com código: " + codigo);
-            return "mostrarmensagem";
-        }
-    }
+    // // ==========
+    // @PostMapping("/abriralterar")
+    // public String abrirAlterar(Long codigo, Model model) {
+    // Optional<Diretor> optDiretor = diretorRepository.findById(codigo);
+    // if (optDiretor.isPresent()) {
+    // model.addAttribute("diretor", optDiretor.get());
+    // return "diretor/alterar";
+    // } else {
+    // model.addAttribute("opcao", "diretor");
+    // model.addAttribute("mensagem", "Não existe diretor com código: " + codigo);
+    // return "mostrarmensagem";
+    // }
+    // }
 
-    @PostMapping("/alterar")
-    public String alterar(Diretor diretor) {
-        diretorService.salvar(diretor);
-        return "redirect:/diretor/mostrarmensagemalterarok";
-    }
+    // @PostMapping("/alterar")
+    // public String alterar(Diretor diretor) {
+    // diretorService.salvar(diretor);
+    // return "redirect:/diretor/mostrarmensagemalterarok";
+    // }
 
-    @GetMapping("/mostrarmensagemalterarok")
-    public String mostrarMensagemAlterarOK(Diretor diretor, Model model) {
+    // @GetMapping("/mostrarmensagemalterarok")
+    // public String mostrarMensagemAlterarOK(Diretor diretor, Model model) {
 
-        NotificacaoAlertify notificacao = new NotificacaoAlertify("Diretor alterado com sucesso!", TipoNotificaoAlertify.SUCESSO);
-        model.addAttribute("notificacao", notificacao);
-        model.addAttribute("url", "/diretor/pesquisar");
-        model.addAttribute("uso", "diretor");
+    // NotificacaoAlertify notificacao = new NotificacaoAlertify("Diretor alterado
+    // com sucesso!", TipoNotificaoAlertify.SUCESSO);
+    // model.addAttribute("notificacao", notificacao);
+    // model.addAttribute("url", "/diretor/pesquisar");
+    // model.addAttribute("uso", "diretor");
 
-        return "diretor/pesquisar";
-    }
-    // ==========
+    // return "diretor/pesquisar";
+    // }
+    // // ==========
 
-    // ==========
-    @PostMapping("/remover")
-    public String remover(Long codigo, Model model) {
-        Optional<Diretor> optPessoa = diretorRepository.findById(codigo);
-        if (optPessoa.isPresent()) {
-            Diretor diretor = optPessoa.get();
-            diretor.setStatus(Status.INATIVO);
-            diretorService.alterar(diretor);
-            return "redirect:/diretor/mostrarmensagemremocaook";
-        } else {
-            model.addAttribute("opcao", "diretor");
-            model.addAttribute("mensagem", "Impossível remover diretor com código: " + codigo);
-            return "mostrarmensagem";
-        }
-    }
+    // // ==========
+    // @PostMapping("/remover")
+    // public String remover(Long codigo, Model model) {
+    // Optional<Diretor> optPessoa = diretorRepository.findById(codigo);
+    // if (optPessoa.isPresent()) {
+    // Diretor diretor = optPessoa.get();
+    // diretor.setStatus(Status.INATIVO);
+    // diretorService.alterar(diretor);
+    // return "redirect:/diretor/mostrarmensagemremocaook";
+    // } else {
+    // model.addAttribute("opcao", "diretor");
+    // model.addAttribute("mensagem", "Impossível remover diretor com código: " +
+    // codigo);
+    // return "mostrarmensagem";
+    // }
+    // }
 
-    @GetMapping("/mostrarmensagemremocaook")
-    public String mostrarMensagemRemoverOK(Model model) {
+    // @GetMapping("/mostrarmensagemremocaook")
+    // public String mostrarMensagemRemoverOK(Model model) {
 
-        NotificacaoAlertify notificacao = new NotificacaoAlertify("Diretor removida com sucesso!",
-                TipoNotificaoAlertify.SUCESSO);
-        model.addAttribute("notificacao", notificacao);
-        model.addAttribute("url", "/diretor/pesquisar");
-        model.addAttribute("uso", "diretor");
+    // NotificacaoAlertify notificacao = new NotificacaoAlertify("Diretor removida
+    // com sucesso!",
+    // TipoNotificaoAlertify.SUCESSO);
+    // model.addAttribute("notificacao", notificacao);
+    // model.addAttribute("url", "/diretor/pesquisar");
+    // model.addAttribute("uso", "diretor");
 
-        return "diretor/pesquisar";
-    }
-    // ==========
+    // return "diretor/pesquisar";
+    // }
+    // // ==========
 }

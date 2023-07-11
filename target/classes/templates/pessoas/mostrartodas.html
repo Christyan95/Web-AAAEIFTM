@@ -22,19 +22,28 @@
 						<div
 							th:replace="~{layout/fragments/paginacao :: coluna(${pagina}, 'codigo', 'Código', 'w-25')}">
 						</div>
+
 						<div th:replace="~{layout/fragments/paginacao :: coluna(${pagina}, 'nome', 'Nome', '')}"></div>
+
 						<th scope="col">CPF</th>
+
 						<th scope="col">Nascimento</th>
+
 						<div th:if="${uso == 'pessoas'}">
 							<th scope="col" colspan="2">Operação</th>
 						</div>
 
+						<div th:if="${uso == 'carrinho'}">
+							<th scope="col" colspan="1">Operação</th>
+						</div>
 					</tr>
+
 					<tr th:each="pessoa : ${pagina.conteudo}">
 						<td th:text="${pessoa.codigo}"></td>
 						<td th:text="${pessoa.nome}"></td>
 						<td th:text="${pessoa.cpf}"></td>
 						<td th:text="${{pessoa.dataNascimento}}"></td>
+						
 						<div th:if="${uso == 'pessoas'}">
 							<td>
 								<form th:action="@{/pessoas/abriralterar}" method="POST">
@@ -56,16 +65,17 @@
 								</form>
 							</td>
 						</div>
-						<!-- <div th:if="${uso == 'aplicacoes'}">
+						
+						<div th:if="${uso == 'carrinho'}">
 							<td>
-								<form th:action="@{/aplicacoes/escolherpessoa}" method="POST">
+								<form th:action="@{/carrinho/definirpessoa}" method="POST">
 									<input type="hidden" name="codigo" th:value="${pessoa.codigo}">
 									<button type="submit" class="btn btn-primary">
 										Escolher
 									</button>
 								</form>
 							</td>
-						</div> -->
+						</div>
 					</tr>
 				</table>
 

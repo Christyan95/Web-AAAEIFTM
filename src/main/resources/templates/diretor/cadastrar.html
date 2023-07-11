@@ -17,32 +17,33 @@
 		<main class="mt-5 p-4 pt-5">
 			<div class="container-fluid">
 
-				<form th:action="@{/diretor/cadastrar}" method="POST">
-					<input type="hidden" th:field="${diretor.codigo}">
+				<form th:action="@{/diretor/cadastrar}" method="POST" th:object="${diretor}">
+					<input type="hidden" th:field="*{codigo}">
 
-					<label for="nome" class="form-label">Nome:</label>
-					<input type="text" th:field="${diretor.nome}" class="form-control" th:errorclass="is-invalid">
-					<span class="invalid-feedback" th:if="${#fields.hasErrors('diretor.nome')}"
-						th:each="erro : ${#fields.errors('diretor.nome')}" th:text="${erro} + '. '"></span>
-
-					<label for="cpf" class="form-label">CPF:</label>
-					<input type="text" th:field="${diretor.cpf}" class="form-control" th:errorclass="is-invalid">
-					<span class="invalid-feedback" th:if="${#fields.hasErrors('diretor.cpf')}"
-						th:each="erro : ${#fields.errors('diretor.cpf')}" th:text="${erro} + '. '"></span>
-
-					<label for="dataNascimento" class="form-label">Nascimento:</label>
-					<input type="text" th:field="${diretor.dataNascimento}" class="form-control componentedata"
+					<label for="nome" class="form-label mt-4">Nome:</label>
+					<input type="text" id="nome" th:field="*{nome}" autofocus="autofocus" class="form-control"
 						th:errorclass="is-invalid">
-					<span class="invalid-feedback" th:if="${#fields.hasErrors('diretor.dataNascimento')}"
-						th:each="erro : ${#fields.errors('diretor.dataNascimento')}" th:text="${erro} + '. '"></span>
+					<span class="invalid-feedback" th:if="${#fields.hasErrors('nome')}"
+						th:each="erro : ${#fields.errors('nome')}" th:text="${erro} + '. '"></span>
 
-					<div th:each="area: ${todosAreas}" class="form-check">
-						<input type="checkbox" th:field="*{areas}" th:value="${area.codigo}" class="form-check-input">
-						<label th:for="${#ids.prev('areas')}" th:text="${area.nome}" class="form-check-label">Texto
-							checkbox 1</label>
-					</div>
-					<span class="invalid-feedback" th:if="${#fields.hasErrors('areas')}"
-						th:each="erro : ${#fields.errors('areas')}" th:text="${erro} + '. '"></span>
+					<label for="cpf" class="form-label mt-4">CPF:</label>
+					<input type="text" id="cpf" th:field="*{cpf}" autofocus="autofocus" class="form-control"
+						th:errorclass="is-invalid">
+					<span class="invalid-feedback" th:if="${#fields.hasErrors('cpf')}"
+						th:each="erro : ${#fields.errors('cpf')}" th:text="${erro} + '. '"></span>
+
+					<label for="dataNascimento" class="form-label mt-3">Data de Nascimento:</label>
+					<input type="text" id="dataNascimento" th:field="*{dataNascimento}"
+						class="form-control mb-4 componentedata" th:errorclass="is-invalid">
+					<span class="invalid-feedback" th:if="${#fields.hasErrors('dataNascimento')}"
+						th:each="erro : ${#fields.errors('dataNascimento')}" th:text="${erro} + '. '"></span>
+
+					<label for="areas" class="form-label">Area:</label>
+					<select id="areas" name="areas" class="form-select">
+						<option value="">Nenhuma específica</option>
+						<option th:each="area : ${todasAreas}" th:value="${area.codigo}" th:text="${area.nome}">
+						</option>
+					</select>
 
 					<input type="submit" value="Cadastrar" class="btn btn-primary mt-3">
 				</form>

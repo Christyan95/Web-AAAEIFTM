@@ -9,6 +9,7 @@ import web.aaaeiftm.repository.DiretorRepository;
 
 @Service
 public class DiretorService {
+
     @Autowired
     private DiretorRepository diretorRepository;
 

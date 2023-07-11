@@ -19,11 +19,10 @@
 
 				<div id="formcadastro">
 
-					<form th:action="@{/produtos/cadastrar}" method="POST" class="enviarcomajax"
-						data-iddestinoresposta="formcadastro" th:fragment="formulario">
+					<form th:action="@{/produtos/cadastrar}" method="POST">
 						<input type="hidden" th:field="${produto.codigo}">
 
-						<label for="nome" class="form-label">Nome:</label>
+						<label for="nome" class="form-label mt-4">Nome:</label>
 						<input type="text" th:field="${produto.nome}" class="form-control" th:errorclass="is-invalid">
 						<span class="invalid-feedback" th:if="${#fields.hasErrors('produto.nome')}"
 							th:each="erro : ${#fields.errors('produto.nome')}" th:text="${erro} + '. '"></span>
@@ -37,10 +36,14 @@
 						<input type="submit" value="Cadastrar" class="btn btn-primary mt-3">
 					</form>
 
+					<div th:if="${notificacao != null}" th:object="${notificacao}">
+						<input type="hidden" id="mensagem" th:value="*{mensagem}">
+						<input type="hidden" id="tipo" th:value="*{tipo}">
+						<input type="hidden" id="intervalo" th:value="*{intervalo}">
+					</div>
+					
 				</div>
 			</div>
-			<meta name="_csrf" th:content="${_csrf.token}" />
-			<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 		</main>
 		<!-- !conteudo principal -->
 

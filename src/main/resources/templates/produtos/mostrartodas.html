@@ -11,7 +11,7 @@
 <body>
 	<div layout:fragment="conteudo">
 
-		<div th:replace="~{layout/fragments/sidebar :: sidebar(opcao='produtos')}"></div>
+		<div th:replace="~{layout/fragments/sidebar :: sidebar(opcao=${uso})}"></div>
 
 		<!-- conteudo principal -->
 		<main class="mt-5 p-4 pt-5">
@@ -22,33 +22,57 @@
 						<div
 							th:replace="~{layout/fragments/paginacao :: coluna(${pagina}, 'codigo', 'Código', 'w-25')}">
 						</div>
+
 						<div th:replace="~{layout/fragments/paginacao :: coluna(${pagina}, 'nome', 'Nome', '')}"></div>
+
 						<th scope="col">Descrição</th>
-						<th scope="col" colspan="2">Operação</th>
+
+						<div th:if="${uso == 'produtos'}">
+							<th scope="col" colspan="2">Operação</th>
+						</div>
+
+						<div th:if="${uso == 'carrinho'}">
+							<th scope="col" colspan="1">Operação</th>
+						</div>
 					</tr>
+
 					<tr th:each="produto : ${pagina.conteudo}">
 						<td th:text="${produto.codigo}"></td>
 						<td th:text="${produto.nome}"></td>
 						<td th:text="${produto.descricao}"></td>
-						<td>
-							<form th:action="@{/produtos/abriralterar}" method="POST">
-								<input type="hidden" name="codigo" th:value="${produto.codigo}">
-								<button type="submit" class="btn btn-primary">
-									<i class="bi bi-pencil-fill"></i>
-								</button>
-							</form>
-						</td>
-						<td>
-							<form th:action="@{/produtos/remover}" method="POST">
-								<input type="hidden"
-									th:value="'Você tem certeza que quer remover a produto ' + ${produto.nome} + ' do codigo ' + ${produto.codigo} + '?'"
-									class="mensagem">
-								<input type="hidden" name="codigo" th:value="${produto.codigo}">
-								<button type="submit" class="btn btn-danger confirmacao">
-									<i class="bi bi-trash-fill"></i>
-								</button>
-							</form>
-						</td>
+
+						<div th:if="${uso == 'produtos'}">
+							<td>
+								<form th:action="@{/produtos/abriralterar}" method="POST">
+									<input type="hidden" name="codigo" th:value="${produto.codigo}">
+									<button type="submit" class="btn btn-primary">
+										<i class="bi bi-pencil-fill"></i>
+									</button>
+								</form>
+							</td>
+							<td>
+								<form th:action="@{/produtos/remover}" method="POST">
+									<input type="hidden"
+										th:value="'Você tem certeza que quer remover a produto ' + ${produto.nome} + ' do codigo ' + ${produto.codigo} + '?'"
+										class="mensagem">
+									<input type="hidden" name="codigo" th:value="${produto.codigo}">
+									<button type="submit" class="btn btn-danger confirmacao">
+										<i class="bi bi-trash-fill"></i>
+									</button>
+								</form>
+							</td>
+						</div>
+
+						<div th:if="${uso == 'carrinho'}">
+							<td>
+								<form th:action="@{/carrinho/definirproduto}" method="POST">
+									<input type="hidden" name="codigo" th:value="${produto.codigo}">
+									<button type="submit" class="btn btn-primary">
+										Escolher
+									</button>
+								</form>
+							</td>
+						</div>
 					</tr>
 				</table>
 

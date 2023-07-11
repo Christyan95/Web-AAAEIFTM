@@ -32,7 +32,7 @@ import web.aaaeiftm.service.PessoaService;
 @Controller
 @RequestMapping("/pessoas")
 public class PessoaController {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(PessoaController.class);
 
     @Autowired
@@ -49,7 +49,7 @@ public class PessoaController {
         }
     }
 
-    //==========
+    // ==========
     @GetMapping("/cadastrar")
     public String abrirCadastro(Pessoa pessoa) {
         return "pessoas/cadastrar";
@@ -70,15 +70,16 @@ public class PessoaController {
 
     @GetMapping("/mostrarmensagemcadastrook")
     public String mostrarMensagemCadastroOK(Pessoa pessoa, Model model) {
-        
-        NotificacaoAlertify notificacao = new NotificacaoAlertify("Pessoa cadastrada com sucesso!", TipoNotificaoAlertify.SUCESSO);
+
+        NotificacaoAlertify notificacao = new NotificacaoAlertify("Pessoa cadastrada com sucesso!",
+                TipoNotificaoAlertify.SUCESSO);
         model.addAttribute("notificacao", notificacao);
 
         return "pessoas/cadastrar";
     }
-    //==========
-    
-    //==========
+    // ==========
+
+    // ==========
     @GetMapping("/abrirpesquisar")
     public String abrirPesquisar(Model model) {
         model.addAttribute("url", "/pessoas/pesquisar");
@@ -98,9 +99,9 @@ public class PessoaController {
         model.addAttribute("uso", "pessoas");
         return "pessoas/mostrartodas";
     }
-    //==========
+    // ==========
 
-    //==========
+    // ==========
     @PostMapping("/abriralterar")
     public String abrirAlterar(Long codigo, Model model) {
         Optional<Pessoa> optPessoa = pessoaRepository.findById(codigo);
@@ -122,17 +123,18 @@ public class PessoaController {
 
     @GetMapping("/mostrarmensagemalterarok")
     public String mostrarMensagemAlterarOK(Pessoa pessoa, Model model) {
-        
-        NotificacaoAlertify notificacao = new NotificacaoAlertify("Pessoa alterada com sucesso!", TipoNotificaoAlertify.SUCESSO);
+
+        NotificacaoAlertify notificacao = new NotificacaoAlertify("Pessoa alterada com sucesso!",
+                TipoNotificaoAlertify.SUCESSO);
         model.addAttribute("notificacao", notificacao);
         model.addAttribute("url", "/pessoas/pesquisar");
         model.addAttribute("uso", "pessoas");
 
         return "pessoas/pesquisar";
     }
-    //==========
+    // ==========
 
-    //==========
+    // ==========
     @PostMapping("/remover")
     public String remover(Long codigo, Model model) {
         Optional<Pessoa> optPessoa = pessoaRepository.findById(codigo);
@@ -151,12 +153,13 @@ public class PessoaController {
     @GetMapping("/mostrarmensagemremocaook")
     public String mostrarMensagemRemoverOK(Model model) {
 
-        NotificacaoAlertify notificacao = new NotificacaoAlertify("Pessoa removida com sucesso!", TipoNotificaoAlertify.SUCESSO);
+        NotificacaoAlertify notificacao = new NotificacaoAlertify("Pessoa removida com sucesso!",
+                TipoNotificaoAlertify.SUCESSO);
         model.addAttribute("notificacao", notificacao);
         model.addAttribute("url", "/pessoas/pesquisar");
         model.addAttribute("uso", "pessoas");
 
         return "pessoas/pesquisar";
     }
-    //==========
+    // ==========
 }

@@ -22,7 +22,7 @@ import web.aaaeiftm.model.Status;
 import web.aaaeiftm.repository.pagination.PaginacaoUtil;
 
 public class DiretorQueriesImpl implements DiretorQueries {
-    
+
     @PersistenceContext
     private EntityManager manager;
     private static final String DATA_NASCIMENTO = "dataNascimento";
@@ -75,9 +75,9 @@ public class DiretorQueriesImpl implements DiretorQueries {
         PaginacaoUtil.prepararIntervalo(typedQuery, pageable);
 
         List<Diretor> diretores = typedQuery.getResultList();
-        
+
         long totalDiretores = getTotalDiretores(filtro);
-        return new PageImpl<>(diretores, pageable, totalDiretores); 
+        return new PageImpl<>(diretores, pageable, totalDiretores);
     }
 
     private Long getTotalDiretores(DiretorFilter filtro) {

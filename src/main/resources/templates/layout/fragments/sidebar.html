@@ -76,52 +76,25 @@
 										<span class="text-white">Pesquisar</span>
 									</a>
 								</li>
-							</ul>
-						</div>
-					</li>
-
-					<!-- 3o elemento -->
-					<li>
-						<a class="nav-link px-3 sidebar-link text-white" data-bs-toggle="collapse" href="#lotes">
-							<span class="me-2">
-								<i class="bi bi-calendar2-date"></i>
-							</span>
-							<span>Eventos</span>
-							<span class="ms-auto">
-								<span class="right-icon">
-									<i class="bi bi-chevron-down"></i>
-								</span>
-							</span>
-						</a>
-						<div class="collapse" id="lotes" th:classappend="${opcao == 'lotes'} ? show">
-							<ul class="navbar-nav ps-3">
 								<li>
-									<a th:href="@{/lotes/cadastrar}" class="nav-link px-3">
+									<a th:href="@{/relatorio/relatorioproduto}" class="nav-link px-3">
 										<span class="me-2">
-											<i class="bi bi-plus-square text-white"></i>
+											<i class="bi bi-clipboard-check"></i>
 										</span>
-										<span class="text-white">Cadastrar</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/lotes/abrirpesquisar}" class="nav-link px-3">
-										<span class="me-2">
-											<i class="bi bi-search text-white"></i>
-										</span>
-										<span class="text-white">Pesquisar</span>
+										<span class="text-white">Relatório</span>
 									</a>
 								</li>
 							</ul>
 						</div>
 					</li>
 
-					<!-- 4o elemento -->
+					<!-- 2o elemento -->
 					<li>
-						<a class="nav-link px-3 sidebar-link text-white" data-bs-toggle="collapse" href="#vacinas">
+						<a class="nav-link px-3 sidebar-link text-white" data-bs-toggle="collapse" href="#carrinho">
 							<span class="me-2">
-								<i class="bi bi-chat-left-dots"></i>
+								<i class="bi bi-cart-dash"></i>
 							</span>
-							<span>Contatos</span>
+							<span>Carrinho</span>
 							<span class="ms-auto">
 								<span class="right-icon">
 									<i class="bi bi-chevron-down"></i>
@@ -129,50 +102,27 @@
 							</span>
 						</a>
 
-						<div class="collapse" id="vacinas" th:classappend="${opcao == 'vacinas'} ? show">
+						<div class="collapse" id="carrinho" th:classappend="${opcao == 'carrinho'} ? show">
 							<ul class="navbar-nav ps-3">
 								<li>
-									<a th:href="@{/vacinas/cadastrar}" class="nav-link px-3">
+									<a th:href="@{/carrinho/comprar}" class="nav-link px-3">
 										<span class="me-2">
 											<i class="bi bi-plus-square text-white"></i>
 										</span>
-										<span class="text-white">Cadastrar</span>
+										<span class="text-white">Comprar</span>
 									</a>
 								</li>
 								<li>
-									<a th:href="@{/vacinas/abrirpesquisar}" class="nav-link px-3">
+									<a th:href="@{/relatorio/relatoriocomprar}" class="nav-link px-3">
 										<span class="me-2">
-											<i class="bi bi-search text-white"></i>
+											<i class="bi bi-clipboard-check"></i>
 										</span>
-										<span class="text-white">Pesquisar</span>
+										<span class="text-white">Relatório</span>
 									</a>
 								</li>
-								<!-- <li>
-									<a th:href="@{/vacinas/buscartodas}" class="nav-link px-3">
-										<span class="me-2">
-											<i class="bi bi-search text-white"></i>
-										</span>
-										<span class="text-white">Buscar Todas</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/vacinas/buscarcodigo}" class="nav-link px-3">
-										<span class="me-2">
-											<i class="bi bi-search text-white"></i>
-										</span>
-										<span class="text-white">Buscar por Código</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/vacinas/buscarnome}" class="nav-link px-3">
-										<span class="me-2">
-											<i class="bi bi-search text-white"></i>
-										</span>
-										<span class="text-white">Buscar por Nome</span>
-									</a>
-								</li> -->
 							</ul>
 						</div>
+
 					</li>
 
 					<!-- 5o elemento -->
@@ -205,6 +155,14 @@
 											<i class="bi bi-search text-white"></i>
 										</span>
 										<span class="text-white">Pesquisar</span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/relatorio/relatoriocliente}" class="nav-link px-3">
+										<span class="me-2">
+											<i class="bi bi-clipboard-check"></i>
+										</span>
+										<span class="text-white">Relatório</span>
 									</a>
 								</li>
 							</ul>
@@ -243,6 +201,14 @@
 										<span class="text-white">Pesquisar</span>
 									</a>
 								</li>
+								<li>
+									<a th:href="@{/relatorio/relatoriodiretor}" class="nav-link px-3">
+										<span class="me-2">
+											<i class="bi bi-clipboard-check"></i>
+										</span>
+										<span class="text-white">Relatório</span>
+									</a>
+								</li>
 							</ul>
 						</div>
 					</li>
@@ -270,14 +236,22 @@
 										<span class="text-white">Cadastrar</span>
 									</a>
 								</li>
-								<!-- <li>
+								<li>
 									<a th:href="@{/usuarios/abrirpesquisar}" class="nav-link px-3">
 										<span class="me-2">
 											<i class="bi bi-search text-white"></i>
 										</span>
 										<span class="text-white">Pesquisar</span>
 									</a>
-								</li> -->
+								</li>
+								<li>
+									<a th:href="@{/relatorio}" class="nav-link px-3">
+										<span class="me-2">
+											<i class="bi bi-clipboard-check"></i>
+										</span>
+										<span class="text-white">Relatório</span>
+									</a>
+								</li>
 							</ul>
 						</div>
 					</li>

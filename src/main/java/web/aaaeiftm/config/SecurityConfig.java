@@ -30,11 +30,23 @@ public class SecurityConfig {
                                                 // Um usuário autenticado e com o papel ADMIN pode fazer requisições
                                                 // para essas
                                                 // URLs
-                                                .requestMatchers("/produtos/cadastrar").hasRole("ADMIN")
+                                                .requestMatchers("/produtos/cadastrar").hasAnyRole("ADMIN","DIRETOR")
+                                                .requestMatchers("/relatorio/relatorioproduto").hasAnyRole("ADMIN", "DIRETOR")
+
+                                                .requestMatchers("/carrinho/comprar").hasAnyRole("ADMIN", "DIRETOR", "USUARIO")
+                                                .requestMatchers("/relatorio/relatoriocomprar").hasAnyRole("ADMIN", "DIRETOR")
+
+                                                .requestMatchers("/pessoas/cadastrar").hasAnyRole("ADMIN", "DIRETOR")
+                                                .requestMatchers("/relatorio/relatoriocliente").hasAnyRole("ADMIN","DIRETOR")
+
+                                                .requestMatchers("/diretor/cadastrar").hasRole("ADMIN")
+                                                .requestMatchers("/relatorio/relatoriodiretor").hasAnyRole("ADMIN", "DIRETOR")
+
                                                 .requestMatchers("/usuarios/cadastrar").hasRole("ADMIN")
+                                                .requestMatchers("/relatorio").hasAnyRole("ADMIN", "DIRETOR")
                                                 // .requestMatchers("URL").hasAnyRole("ADMIN", "USUARIO")
                                                 .anyRequest().permitAll())
-                                                //.anyRequest().authenticated())
+                                // .anyRequest().authenticated())
                                 // )
                                 .formLogin(form -> form
                                                 // Uma página de login customizada

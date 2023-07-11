@@ -39,6 +39,13 @@
 			</exclusions>
 		</dependency>
 
+		<!-- Adiciona a dependência do JasperReports -->
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.20.0</version>
+		</dependency>
+
 		<!-- Adiciona as dependências normais de uma aplicação Spring Boot Web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

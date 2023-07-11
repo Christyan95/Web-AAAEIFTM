@@ -13,7 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -28,11 +27,12 @@ import web.aaaeiftm.validation.UniqueValueAttribute;
 @UniqueValueAttribute(attribute = "nomeUsuario", service = NomeUsuarioUnicoService.class, message = "Já existe um nome de usuário igual a este cadastrado")
 public class Usuario implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	// private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "gerador1", sequenceName = "usuario_codigo_seq", allocationSize = 1)
-	@GeneratedValue(generator = "gerador1", strategy = GenerationType.SEQUENCE)
+	// @SequenceGenerator(name = "gerador1", sequenceName = "usuario_codigo_seq", allocationSize = 1)
+	// @GeneratedValue(generator = "gerador1", strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
 	@NotBlank(message = "O nome é obrigatório")
